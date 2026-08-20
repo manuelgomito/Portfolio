@@ -1,0 +1,27 @@
+# Fail2Ban example configuration for SSH protection.
+
+#
+
+# Copy the required settings into /etc/fail2ban/jail.local
+
+# after reviewing them for the target environment.
+
+[DEFAULT]
+
+# Ban configuration
+
+bantime = 1d
+findtime = 10m
+maxretry = 3
+
+# Logging
+
+backend = systemd
+
+[sshd]
+
+enabled = true
+port = ssh
+filter = sshd
+logpath = %(sshd_log)s
+maxretry = 3

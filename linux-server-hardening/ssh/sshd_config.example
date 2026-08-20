@@ -1,0 +1,31 @@
+# SSH Hardening Example
+#
+# This file is an example configuration for a hardened Ubuntu Server.
+# Review and adapt the configuration before applying it to production.
+
+# Network
+Port 22
+AddressFamily any
+
+# Authentication
+PermitRootLogin no
+PubkeyAuthentication yes
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+UsePAM yes
+
+# Authentication attempts
+MaxAuthTries 3
+LoginGraceTime 30
+
+# Session management
+ClientAliveInterval 300
+ClientAliveCountMax 2
+
+# Access control
+X11Forwarding no
+AllowAgentForwarding no
+AllowTcpForwarding no
+
+# Logging
+LogLevel VERBOSE
