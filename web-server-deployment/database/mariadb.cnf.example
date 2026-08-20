@@ -1,0 +1,49 @@
+# MariaDB example configuration
+#
+# Production-oriented baseline for a Linux web server.
+# Review all values according to available CPU, RAM and workload.
+
+[mysqld]
+
+# Network
+bind-address = 127.0.0.1
+port = 3306
+
+# Character set
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+# Connection management
+max_connections = 100
+
+# InnoDB
+default_storage_engine = InnoDB
+innodb_buffer_pool_size = 1G
+innodb_log_file_size = 256M
+innodb_file_per_table = 1
+
+# Temporary tables
+tmp_table_size = 64M
+max_heap_table_size = 64M
+
+# Query cache
+# Disabled because modern workloads generally benefit from
+# application-level and Redis caching instead.
+query_cache_type = 0
+query_cache_size = 0
+
+# Slow query logging
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/mariadb-slow.log
+long_query_time = 2
+
+# Error logging
+log_error = /var/log/mysql/mariadb-error.log
+
+# Security
+local_infile = 0
+skip_name_resolve = 1
+
+# Binary logging should be enabled when replication,
+# point-in-time recovery or other operational requirements exist.
+# log_bin = /var/log/mysql/mariadb-bin

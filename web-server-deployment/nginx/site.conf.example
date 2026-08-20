@@ -1,0 +1,44 @@
+# Example Nginx virtual host configuration
+#
+# This is a template for a PHP-based web application.
+# Review and adapt before using in production.
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name example.com www.example.com;
+
+    root /var/www/example.com/public;
+    index index.php index.html;
+
+    # Access and error logs
+    access_log /var/log/nginx/example.com.access.log;
+    error_log /var/log/nginx/example.com.error.log;
+
+    # Security
+    server_tokens off;
+
+    # Static files
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # PHP-FPM
+    location ~ \.php$ {
+        try_files $uri =404;
+
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php-fpm.sock;
+    }
+
+    # Deny access to hidden files
+    location ~ /\. {
+        deny all;
+    }
+
+    # Deny access to sensitive files
+    location ~* \.(env|ini|log|sql|bak|backup)$ {
+        deny all;
+    }
+}

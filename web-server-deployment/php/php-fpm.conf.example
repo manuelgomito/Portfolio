@@ -1,0 +1,46 @@
+; PHP-FPM pool example
+;
+; Example configuration for a production-oriented PHP application.
+; Review resource limits according to the server capacity and workload.
+
+[www]
+
+; Process management
+pm = dynamic
+
+; Maximum number of PHP-FPM worker processes
+pm.max_children = 20
+
+; Number of processes created at startup
+pm.start_servers = 4
+
+; Minimum number of idle processes
+pm.min_spare_servers = 2
+
+; Maximum number of idle processes
+pm.max_spare_servers = 6
+
+; Maximum number of requests handled by each worker
+; Helps recycle workers and limit the impact of memory leaks.
+pm.max_requests = 500
+
+; Unix socket used by Nginx
+listen = /run/php/php-fpm.sock
+
+; Socket permissions
+listen.owner = www-data
+listen.group = www-data
+listen.mode = 0660
+
+; Process ownership
+user = www-data
+group = www-data
+
+; Logging
+catch_workers_output = yes
+
+; Application execution limits
+request_terminate_timeout = 60s
+
+; Security
+clear_env = yes
