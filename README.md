@@ -1,5 +1,4 @@
 # Manuel Gomito — Linux Infrastructure & DevOps
-
 Linux infrastructure and systems administration professional focused on deploying, securing, automating and maintaining production environments.
 
 My practical experience includes Linux VPS administration, web infrastructure, server hardening, networking, DNS, backups, monitoring, Docker and infrastructure automation.
@@ -71,6 +70,31 @@ My practical experience includes Linux VPS administration, web infrastructure, s
 
 ## Featured Projects
 
+### External Firewall
+
+External firewall implementation for a production Linux VPS hosted on Contabo.
+
+**Technologies:**
+
+`Contabo Firewall` `TCP/IP` `DNS` `SMTP` `IMAP` `POP3` `SSH`
+
+**Includes:**
+
+- Default-deny inbound traffic policy
+- Controlled public service exposure
+- SSH access on a non-default port
+- HTTP/HTTPS access
+- DNS TCP/UDP configuration
+- SMTP and mail access services
+- Public HestiaCP access
+- FTP exposure testing and subsequent blocking
+- External firewall management
+- Network attack surface reduction
+
+[View project →](./external-firewall)
+
+---
+
 ### Linux Server Hardening
 
 Security baseline for internet-facing Ubuntu Linux servers.
@@ -83,7 +107,7 @@ Security baseline for internet-facing Ubuntu Linux servers.
 
 - SSH hardening
 - SSH key-based authentication
-- Firewall baseline
+- Firewall configuration
 - Fail2Ban configuration
 - Security audit automation
 - Linux security practices
@@ -95,24 +119,26 @@ Security baseline for internet-facing Ubuntu Linux servers.
 
 ### Web Server Deployment
 
-Production-style Linux web infrastructure for hosting web applications.
+Production-oriented Linux web infrastructure for hosting web applications.
 
-**Planned technologies:**
+**Technologies:**
 
-`Ubuntu Server` `Nginx` `PHP-FPM` `MariaDB` `SSL/TLS`
+`Ubuntu Server` `Nginx` `Apache` `PHP-FPM` `MariaDB` `SSL/TLS`
 
-**Planned components:**
+**Components:**
 
-- Linux server preparation
 - Nginx configuration
 - PHP-FPM configuration
-- MariaDB deployment
+- Database infrastructure
 - Virtual hosts
 - SSL/TLS configuration
 - File permissions
+- Backup infrastructure
+- Operational scripts
 - Web application deployment
-- Backup strategy
-- Monitoring and troubleshooting
+- Server troubleshooting
+
+[View project →](./web-server-deployment)
 
 ---
 
@@ -120,7 +146,7 @@ Production-style Linux web infrastructure for hosting web applications.
 
 Automated Linux server provisioning and configuration.
 
-**Planned technologies:**
+**Technologies:**
 
 `Ansible` `Linux` `SSH` `Bash`
 
@@ -140,7 +166,7 @@ Automated Linux server provisioning and configuration.
 
 Containerized application infrastructure using Docker and Docker Compose.
 
-**Planned technologies:**
+**Technologies:**
 
 `Docker` `Docker Compose` `Linux` `Nginx`
 
