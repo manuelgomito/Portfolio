@@ -1,0 +1,17 @@
+aws_region = "us-east-1"
+
+ami_id = "ami-xxxxxxxxxxxxxxxxx"
+
+instance_type = "t3.micro"
+
+root_volume_size = 10
+
+backup_volume_size = 150
+
+availability_zone = "us-east-1a"
+
+subnet_id = "subnet-xxxxxxxxxxxxxxxxx"
+
+security_group_id = "sg-xxxxxxxxxxxxxxxxx"
+
+key_name = "your-key-pair"
