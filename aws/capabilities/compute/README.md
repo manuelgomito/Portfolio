@@ -43,6 +43,6 @@ The configuration separates compute resources from storage, networking, and othe
 
 The compute capability was applied to the following AWS infrastructure project:
 
-- [Weekly Backup Infrastructure](../../projects/weekly-backup-infrastructure/)
+- [Weekly Backup Infrastructure](../../../backup/weekly-backup-infrastructure/)
 
 The project uses an EC2 instance as the compute layer for the backup environment.

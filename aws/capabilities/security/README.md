@@ -42,4 +42,4 @@ Security-related infrastructure configuration can be managed declaratively with 
 
 Security practices were applied to the following AWS infrastructure project:
 
-- [Weekly Backup Infrastructure](../../projects/weekly-backup-infrastructure/)
+- [Weekly Backup Infrastructure](../../../backup/weekly-backup-infrastructure/)

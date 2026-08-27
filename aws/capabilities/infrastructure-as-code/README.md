@@ -49,6 +49,6 @@ The lab infrastructure demonstrates Terraform management of:
 
 This capability was applied to a real AWS infrastructure project:
 
-- [Weekly Backup Infrastructure](../../projects/weekly-backup-infrastructure/)
+- [Weekly Backup Infrastructure](../../../backup/weekly-backup-infrastructure/)
 
 The project demonstrates how Terraform can provision and manage the infrastructure required for a dedicated backup environment.

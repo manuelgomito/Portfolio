@@ -52,4 +52,4 @@ The configuration separates the operating-system root volume from dedicated pers
 
 Storage capabilities were applied to the following AWS infrastructure project:
 
-- [Weekly Backup Infrastructure](../../projects/weekly-backup-infrastructure/)
+- [Weekly Backup Infrastructure](../../../backup/weekly-backup-infrastructure/)

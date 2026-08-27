@@ -34,4 +34,4 @@ Technologies and services:
 - Terraform
 - AWS CLI
 
-[View project →](./projects/weekly-backup-infrastructure/)
+[View project →](../backup/weekly-backup-infrastructure/)

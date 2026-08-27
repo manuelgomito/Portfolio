@@ -45,4 +45,4 @@ Networking-related resources and associations can be managed declaratively throu
 
 Networking concepts were applied to the following AWS infrastructure project:
 
-- [Weekly Backup Infrastructure](../../projects/weekly-backup-infrastructure/)
+- [Weekly Backup Infrastructure](../../../backup/weekly-backup-infrastructure/)

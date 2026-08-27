@@ -33,4 +33,4 @@ AWS CLI was also used alongside Terraform to validate the resulting infrastructu
 
 ## Related Project
 
-- [Weekly Backup Infrastructure](../../projects/weekly-backup-infrastructure/)
+- [Weekly Backup Infrastructure](../../../backup/weekly-backup-infrastructure/)
