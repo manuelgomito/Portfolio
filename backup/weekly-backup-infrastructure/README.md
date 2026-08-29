@@ -171,3 +171,11 @@ The system is designed around four principles:
 * **Recoverability** — backup data is maintained with restoration in mind.
 
 The current implementation uses AWS for the backup infrastructure, while the backup workflow remains largely independent of the infrastructure provider.
+
+## Need a Similar Backup Solution?
+
+I design and implement automated, secure backup solutions adapted to specific infrastructure requirements.
+
+If you need a similar solution for your Linux infrastructure, feel free to get in touch to discuss your environment, backup requirements, and recovery strategy.
+
+[**Contact me on WhatsApp**](https://wa.me/244926046364?text=Hello%20Manuel%2C%20I%27m%20interested%20in%20a%20backup%20solution%20for%20my%20infrastructure.)
