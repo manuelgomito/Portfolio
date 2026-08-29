@@ -1,98 +1,173 @@
 # Weekly Backup Infrastructure
 
-Production-like AWS backup infrastructure designed to provide a dedicated and persistent storage environment for Linux server backups.
+Automated weekly backup system designed to protect Linux server data through secure remote synchronization, persistent storage, monitoring, and recovery procedures.
 
-The infrastructure is provisioned and managed using Terraform, with AWS services integrated for compute, storage, networking and secure administration.
+The system separates the backup workflow from the underlying infrastructure, allowing the backup architecture to be adapted to different environments.
 
-## Architecture
+## Overview
 
-The environment consists of:
+The backup system consists of:
 
-- Amazon EC2 running Ubuntu Server
-- Dedicated Amazon EBS volume for backup storage
-- Elastic IP for stable remote access
-- VPC and subnet integration
-- AWS Security Group for network access control
-- Terraform for infrastructure provisioning
-- AWS CLI for infrastructure inspection and validation
+* Linux source server
+* Dedicated remote backup server
+* SSH key-based authentication
+* `rsync` for data synchronization
+* Bash-based backup orchestration
+* `cron` for scheduled execution
+* Persistent backup storage
+* Backup state and operational logs
+* Monitoring and failure detection
+* Email notifications
+* Recovery procedures
 
-## Infrastructure Components
+## Backup Architecture
 
-| Component | Configuration |
-|---|---|
-| Compute | Amazon EC2 `t3.micro` |
-| Operating System | Ubuntu Server 24.04 LTS |
-| Root Storage | 10 GB encrypted gp3 |
-| Backup Storage | 150 GB encrypted EBS |
-| Backup Volume Type | `sc1` |
-| Network | Amazon VPC |
-| Public Address | Elastic IP |
-| Access | SSH |
-| IaC | Terraform |
-| Validation | AWS CLI |
+```text
+┌─────────────────────┐
+│    Linux Server     │
+│                     │
+│ Application Data    │
+│ Configuration       │
+│ Database Data       │
+└──────────┬──────────┘
+           │
+           │ SSH + rsync
+           ▼
+┌─────────────────────┐
+│   Backup Server     │
+│                     │
+│ Backup Operations   │
+│ Persistent Storage  │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│    Backup Storage   │
+│                     │
+│       /backup       │
+└─────────────────────┘
+```
 
-## Terraform
+The current implementation uses AWS as the underlying infrastructure platform. The backup workflow itself remains largely independent of the infrastructure provider.
 
-The infrastructure is defined using Terraform resources for:
+## Backup Workflow
 
-- EC2 instance provisioning
-- Encrypted root storage
-- Dedicated EBS backup storage
-- EBS volume attachment
-- Elastic IP allocation
-- Elastic IP association
+The weekly backup follows a controlled execution process:
 
-Terraform variables separate infrastructure logic from environment-specific values.
+```text
+Weekly Schedule
+       │
+       ▼
+     Cron
+       │
+       ▼
+Backup Script
+       │
+       ▼
+Execution Lock
+       │
+       ▼
+Connectivity Check
+       │
+       ▼
+Data Synchronization
+       │
+       ▼
+Backup Validation
+       │
+       ▼
+Monitoring
+       │
+       ▼
+State and Logs
+       │
+       ▼
+Email Notification
+```
 
-Example configuration:
+The workflow is designed to make failures visible instead of silently producing incomplete backups.
 
-`terraform/terraform.tfvars.example`
+Critical failures affect the final backup status and are reported through the monitoring and notification mechanisms.
 
-No AWS account-specific identifiers or credentials are included in the repository.
+## Scheduling
 
-## Persistent Backup Storage
+The backup process is executed on a weekly schedule using Linux `cron`.
 
-The dedicated EBS volume is formatted with `ext4` and mounted at:
+The scheduling layer starts the backup workflow but does not perform the backup itself.
 
-`/backup`
+Infrastructure availability can be controlled separately when required by the underlying platform.
 
-Persistent mounting is configured through `/etc/fstab` using the filesystem UUID.
+## Monitoring
 
-The configuration was validated by:
+The monitoring layer provides visibility into the operational state of the backup process.
 
-- Mounting the volume
-- Writing and removing a test file
-- Verifying available storage
-- Rebooting the EC2 instance
-- Confirming that `/backup` was automatically mounted after reboot
+It monitors conditions such as:
 
-## Elastic IP
+* Backup execution status
+* Start and completion times
+* Successful and failed operations
+* Backup server connectivity
+* Storage availability
+* Script errors
+* Infrastructure availability
+* Unexpected execution conditions
 
-An Elastic IP is associated with the backup instance to provide a stable public IPv4 address across instance stop/start operations.
+The monitoring function complements the backup script by helping detect failures that could otherwise remain unnoticed.
 
-This avoids relying on the temporary public IPv4 address assigned directly to the EC2 instance.
+Email notifications communicate the final execution result.
 
 ## Security
 
-The infrastructure uses:
+The backup system uses:
 
-- Encrypted EBS volumes
-- AWS Security Groups
-- SSH-based administration
-- Private IP addressing inside the VPC
-- Terraform-managed infrastructure
-- No credentials stored in the repository
+* SSH key-based authentication
+* Ed25519 keys
+* Restricted remote access
+* Dedicated backup infrastructure
+* Persistent backup storage
+* Execution locking
+* Exclusion of unnecessary temporary data
+* Separation of backup infrastructure from the source server
 
-Security Group rules are kept outside the public Terraform configuration because they depend on the target environment.
+No credentials, private keys, passwords, tokens, or other sensitive information are stored in the public repository.
 
-## Validation
+Sensitive infrastructure-specific information is intentionally excluded from the documentation.
 
-The infrastructure was validated using both Terraform and AWS CLI.
+See [`docs/security.md`](docs/security.md) for the security model.
 
-Terraform validation included:
+## Recovery
 
-```bash
-terraform fmt
-terraform validate
-terraform plan
-terraform apply
+Backup data is only considered useful when it can be recovered.
+
+The recovery process covers:
+
+1. Identifying the required backup data
+2. Validating the selected recovery point
+3. Accessing the backup storage
+4. Restoring files and directories
+5. Restoring databases when applicable
+6. Verifying permissions and ownership
+7. Validating the recovered environment
+8. Recovering to a replacement environment when required
+
+See [`docs/recovery.md`](docs/recovery.md) for the recovery procedures.
+
+## Documentation
+
+| Document                                     | Description                                    |
+| -------------------------------------------- | ---------------------------------------------- |
+| [`Architecture`](docs/architecture.md)       | System components and their relationships      |
+| [`Backup Workflow`](docs/backup-workflow.md) | Complete backup execution flow                 |
+| [`Security`](docs/security.md)               | Security controls applied to the backup system |
+| [`Recovery`](docs/recovery.md)               | Data recovery and restoration procedures       |
+
+## Design Principles
+
+The system is designed around four principles:
+
+* **Automation** — backups execute according to a predictable schedule.
+* **Reliability** — execution is controlled and failures are made visible.
+* **Security** — remote access and stored data are protected.
+* **Recoverability** — backup data is maintained with restoration in mind.
+
+The current implementation uses AWS for the backup infrastructure, while the backup workflow remains largely independent of the infrastructure provider.
